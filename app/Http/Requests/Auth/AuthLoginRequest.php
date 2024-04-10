@@ -18,7 +18,7 @@ class AuthLoginRequest extends FormRequest
     {
       return [
         'email-username' => 'required|string|max:255',
-        'password' => 'required|string|min:8',
+        'password' => 'required|string|min:6',
         'remember-me' => 'nullable',
       ];
     }

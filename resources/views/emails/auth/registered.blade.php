@@ -1,8 +1,3 @@
-@section('page-style')
- <link rel="stylesheet" href="{{asset('assets/vendor/css/emails/registration-email.css')}}">
-@endsection
-
-
 <!doctype html>
 <html lang="en">
 <head>

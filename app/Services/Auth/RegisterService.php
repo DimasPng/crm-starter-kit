@@ -3,17 +3,14 @@
 namespace App\Services\Auth;
 
 use App\Events\Auth\UserRegistered;
-use App\Mail\Auth\UserRegisteredMail;
 use App\Models\User;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class RegisterService
 {
   public function __construct(
-    private Dispatcher $dispatcher,
   ) {
   }
 
@@ -26,8 +23,6 @@ class RegisterService
         'confirm_token' => Str::random(32),
       ]);
 
-      Mail::to($user->getEmail())->send(new UserRegisteredMail($user));
-
-      //$this->dispatcher->dispatch(new UserRegistered($user));
+      UserRegistered::dispatch($user);
   }
 }

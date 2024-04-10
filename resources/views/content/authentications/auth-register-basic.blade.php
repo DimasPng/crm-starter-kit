@@ -49,18 +49,28 @@ $customizerHidden = 'customizer-hide';
             @csrf
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" autofocus>
+              <input type="text" class="form-control" id="username" name="username" value="{{old('username')}}" placeholder="Enter your username" autofocus>
+              @if($errors->has('username'))
+                <div class="error">{{ $errors->first('username') }}</div>
+              @endif
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
-              <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email">
+              <input type="text" class="form-control" id="email" name="email" value="{{old('email')}}" placeholder="Enter your email">
+              @if($errors->has('email'))
+                <div class="error">{{ $errors->first('email') }}</div>
+              @endif
             </div>
             <div class="mb-3 form-password-toggle">
               <label class="form-label" for="password">Password</label>
-              <div class="input-group input-group-merge">
+              <div class="input-group input-group-merge mb-3">
                 <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
               </div>
+                @if($errors->has('password'))
+                  <div class="error">{{ $errors->first('password') }}</div>
+                @endif
+
             </div>
 
             <div class="mb-3">

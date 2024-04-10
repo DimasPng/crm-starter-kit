@@ -19,12 +19,6 @@ use App\Http\Controllers\authentications\RegisterBasic;
 |
 */
 
-
-
-Route::get('/login', [LoginBasic::class, 'index'])
-  ->middleware('guest')
-  ->name('login');
-
 Route::middleware(['auth'])->group(function () {
   // Main Page Route
   Route::get('/', [HomePage::class, 'index'])->name('pages-home');
@@ -46,5 +40,3 @@ Route::middleware(['guest'])->group(function () {
   Route::post('/auth/register-basic', [RegisterBasic::class, 'register'])->name('auth-register');
   Route::get('/auth/confirm/{token}', [RegisterBasic::class, 'confirm'])->name('auth-confirm');
 });
-
-

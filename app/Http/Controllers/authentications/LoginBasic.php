@@ -17,24 +17,30 @@ class LoginBasic extends Controller
 
   public function login(AuthLoginRequest $request)
   {
-     $auth = Auth::attempt(
-       ['email' => $request->get('email-username'), 'password' => $request->get('password')],
-       $request->filled('remember-me'),
-     );
+    $auth = Auth::attempt(
+      $request->only($this->username($request), 'password'),
+      $request->filled('remember-me')
+    );
 
-     if ($auth) {
-       $request->session()->regenerate();
-       /** @var User $user */
-       $user = Auth::user();
-       if (!$user->isConformed()) {
-         Auth::logout();
-         return back()->with('error', 'You need confirm your account. Check your email.');
-       }
+    if ($auth) {
+      $request->session()->regenerate();
+      /** @var User $user */
+      $user = Auth::user();
+      if (!$user->isConformed()) {
+        Auth::logout();
+        return redirect()->back()->with('error', 'You need confirm your account. Check your email.');
+      }
 
-       return redirect()->route('pages-home');
-     }
+      return redirect()->route('pages-home');
+    }
 
-     return back()->with('error', 'login or password are invalid');
+    return redirect()->back()->with('error', 'login or password are invalid');
+  }
 
+  public function username(AuthLoginRequest $request): string
+  {
+    $field = (filter_var($request->get('email-username'), FILTER_VALIDATE_EMAIL)) ? 'email' : 'name';
+    $request->merge([$field => request()->get('email-username')]);
+    return $field;
   }
 }

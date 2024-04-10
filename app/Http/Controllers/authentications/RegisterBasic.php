@@ -28,7 +28,7 @@ class RegisterBasic extends Controller
       $request->get('password'),
     );
 
-    return redirect('/')->with('success', 'You are already registered. Check your email');
+    return redirect()->route('auth-login-basic')->with('success', 'You are registered. Check your email');
   }
 
 
@@ -39,12 +39,12 @@ class RegisterBasic extends Controller
       if(null !== $user = User::where('confirm_token', $token)->first()) {
         $user->verify();
         $user->save();
-        return redirect('/')->with('success', 'Welcome! You are confirmed success.');
+        return redirect()->route('pages-home')->with('success', 'Welcome! You are confirmed success.');
       }
     }catch (\DomainException $exception) {
-      return redirect('/')->with('error', $exception->getMessage());
+      return redirect()->route('pages-home')->with('error', $exception->getMessage());
     }
 
-    return redirect('/')->with('error', 'User not found');
+    return redirect()->route('pages-home')->with('error', 'User not found');
   }
 }

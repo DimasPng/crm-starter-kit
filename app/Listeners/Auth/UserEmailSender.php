@@ -13,10 +13,8 @@ class UserEmailSender
         //
     }
 
-
     public function handle(UserRegistered $event): void
     {
-
        Mail::to($event->user->getEmail())->send(new UserRegisteredMail($event->user));
     }
 }
