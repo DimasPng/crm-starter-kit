@@ -55,6 +55,11 @@ class User extends Authenticatable
       $this->confirm_token = null;
     }
 
+    public function isConformed(): bool
+    {
+      return !is_null($this->email_verified_at);
+    }
+
 
     public function getEmail(): string
     {
