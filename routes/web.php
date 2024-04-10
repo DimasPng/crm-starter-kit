@@ -19,13 +19,14 @@ use App\Http\Controllers\authentications\RegisterBasic;
 |
 */
 
-// Main Page Route
+
 
 Route::get('/login', [LoginBasic::class, 'index'])
   ->middleware('guest')
   ->name('login');
 
 Route::middleware(['auth'])->group(function () {
+  // Main Page Route
   Route::get('/', [HomePage::class, 'index'])->name('pages-home');
   Route::get('/page-2', [Page2::class, 'index'])->name('pages-page-2');
 
